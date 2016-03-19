@@ -5,10 +5,28 @@
 
 import sys
 sys.path.insert(0, '../')
+import bs4
 import requests
-
 from libs.utils import utils
-from bs4 import BeautifulSoup
+
+def courses_cleanup(s):
+    return ', '.join([x for x in s.splitlines() if x and x[0] != u'\xa0'])
+
+def email_soup_cleanup(email_soup):
+    if not email_soup.a:
+        return ''
+    email_soup.find('img', alt='at').replace_with('@')
+    for img in email_soup.find_all('img'):
+        img.replace_with('.')
+    return email_soup.text.strip()  # .lower()  # ?
+
+def phone_cleanup(s):
+    if not s:
+        return ''
+    s = ''.join([c for c in s if c.isdigit() or c == '+'])
+    if s and s[0] != '+' and len(s) == 10:
+        s = '+39' + s  # if not already internationalized, make it Italian
+    return '-'.join([s[:3], s[3:7], s[7:]]) if s.startswith('+39') else s
 
 def scrape_professors():
     """Get information about professors"""
@@ -31,30 +49,17 @@ def scrape_professors():
         print("Error! Status "+request.status_code)
         return
 
-    professors_table = BeautifulSoup(request.text, "html.parser").find("table")
-
-
-    firsts_td = professors_table.find_all(colspan='2')
-    for name_cell in firsts_td:
-        name = name_cell.find("a").text
-        phone = name_cell.find_next_sibling().text
-        email = str(name_cell.find_next_sibling().find_next_sibling().a) \
-                .replace('<a href="#">', '').replace('</a>', '') \
-                .replace('<img alt="dot" height="2" src="img/dot.gif" width="3"/>', '.') \
-                .replace('<img alt="at" height="10" src="img/at.gif" width="12"/>', '@')
-        courses = name_cell.find_next_sibling().find_next_sibling().find_next_sibling() \
-                  .text.replace('\n', '').replace('\u00a0', '').replace('[F3I]', '') \
-                  .replace('[F4I]', '').replace('[F3M]', '').replace('[I3N]', '') \
-                  .replace('[I4T]', '')
-
+    soup = bs4.BeautifulSoup(request.text, "html.parser")
+    professor_names = soup.find("table").find_all(colspan='2')
+    for name_cell in professor_names:
+        name, phone, email, courses, _ = name_cell.parent.find_all('td')
         scraped_professors.append({
-            "nome": name or "non disponibile",
-            "telefono": phone or "non disponibile",
-            "e-mail": email or "non disponibile",
-            "corsi": courses or "non disponibile",
-            "ufficio": "0"
+            "nome": name.text or "non disponibile",
+            "telefono": phone_cleanup(phone.text) or "non disponibile",
+            "e-mail": email_soup_cleanup(email) or "non disponibile",
+            "corsi": courses_cleanup(courses.text) or "non disponibile",
+            # "ufficio": "0"  # why provide useless data??
         })
-
     utils.write_json(scraped_professors, "../json/professors.json")
 
 if __name__ == "__main__":
