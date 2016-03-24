@@ -3,65 +3,47 @@
 
 """The Package that contains all the telegram's news functions used"""
 
-import os.path
+import os
 import sys
 sys.path.insert(0, '../')
 from libs.utils import utils
 
-import requests
-from bs4 import BeautifulSoup
-
-
-def news_command(bot, update, args):
+def news_command(bot, update, args=None):
     """Defining the `news` command"""
 
-    if len(args) and int(args[0]) <= 10:
-        news_array = utils.read_json("json/news.json")[0:int(args[0])]
-    else:
-        news_array = utils.read_json("json/news.json")
-
+    max_articles = min(int(args[0]) if args else 10, 10)
+    news_array = utils.read_json("json/news.json")[:max_articles]
+    fmt = '{}- [{title}]({link})\n{description:.75}{suffix}\n'
     news_to_string = ""
     for i, item in enumerate(news_array):
+        if item['description'].endswith('... ...'):  # if double elipsess
+            item['description'] = item['description'][:-7]  # remove them
         item["suffix"] = '...' if len(item['description']) > 75 else ''
-        news_to_string += str(i+1)+"- [{title}]({link})\n{description:.75}{suffix}\n".format(**item)
+        news_to_string += fmt.format(i+1, **item)
 
     bot.sendMessage(update.message.chat_id, parse_mode='Markdown', text=news_to_string)
 
 def pull_news(num):
     """This function is built to pull 10 (or an arbitrary number) news from the news page"""
 
-    headers = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3",
-        "accept-encoding": "gzip,deflate,sdch",
-        "accept-language": "en-US,en;q=0.8",
-    }
-
     # Thanks to Luca Pattavina for giving me the right url
     if num <= 5:
-        news_url = ["http://www.disim.univaq.it/main/news.php?entrant=1"]
+        news_urls = ("http://www.disim.univaq.it/main/news.php?entrant=1")
     else:
-        news_url = ["http://www.disim.univaq.it/main/news.php?entrant=1",
-                    "http://www.disim.univaq.it/main/news.php?entrant=2"]
+        news_urls = ("http://www.disim.univaq.it/main/news.php?entrant=1",
+                     "http://www.disim.univaq.it/main/news.php?entrant=2")
 
-    request = []
-    bs_list = []
     news = []
-    for i, url in enumerate(news_url):
-        request.append(requests.get(url, headers=headers))
-        bs_list.append(BeautifulSoup(request[i].text, "html.parser") \
-                .find_all(class_="post_item_list"))
-        descr_list = BeautifulSoup(request[i].text, "html.parser") \
-                .find_all(class_="post_description")
-
-        for j, single_news in enumerate(bs_list[i]):
+    for url in news_urls:
+        soup = utils.get_soup_from_url(url)
+        post_items = soup.find_all(class_='post_item_list')
+        post_descs = soup.find_all(class_='post_description')
+        for i, post_item in enumerate(post_items):
             news.append({
-                "title": single_news.h3.a.text,
-                "description": descr_list[j].get_text().replace("\n", " "),
-                "link": "http://www.disim.univaq.it/main/" + single_news.a.get('href')
+                "title": post_item.h3.a.text,
+                "link": "http://www.disim.univaq.it/main/" + post_item.a.get('href'),
+                "description": post_descs[i].get_text().replace("\n", " ")
             })
-
     return news
 
 def check_news():
@@ -71,18 +53,17 @@ def check_news():
     stored_news = utils.read_json("json/news.json")
     unread_news = []
 
-    if len(pulled_news) > 0:
+    if pulled_news:
         for single_pulled in pulled_news:
             counter = 0
             for single_stored in stored_news:
-                if len(single_pulled) > 0:
+                if single_pulled:
                     if single_pulled == single_stored:
-                        counter = counter+1
+                        counter += 1
 
             if counter == 0:
-                unread_news.append({"title": single_pulled["title"],
-                                    "description": single_pulled['description'],
-                                    "link": single_pulled['link']})
+                unread_news.append({key: single_pulled[key] for key in
+                                    ('title', 'description', 'link')})
 
     return unread_news
 
