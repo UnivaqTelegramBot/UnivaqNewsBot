@@ -5,8 +5,6 @@
 
 import sys
 sys.path.insert(0, '../')
-import bs4
-import requests
 from libs.utils import utils
 
 def courses_cleanup(s):
@@ -31,26 +29,12 @@ def phone_cleanup(s):
 def scrape_professors():
     """Get information about professors"""
 
-    scraped_professors = []
     professors_url = ("http://www.disim.univaq.it/didattica/"
                       "content.php?tipo=3&ordine=1&chiave=0&pid=25&did=8&lid=it&"
                       "frmRicercaNome=&frmRicercaCognome=&frmRicercaLaurea=1&action_search=Filtra")
-    headers = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3",
-        "accept-encoding": "gzip,deflate,sdch",
-        "accept-language": "en-US,en;q=0.8",
-    }
-
-    request = requests.get(professors_url, headers=headers)
-
-    if request.status_code != 200:
-        print("Error! Status "+request.status_code)
-        return
-
-    soup = bs4.BeautifulSoup(request.text, "html.parser")
+    soup = utils.get_soup_from_url(professors_url)
     professor_names = soup.find("table").find_all(colspan='2')
+    scraped_professors = []
     for name_cell in professor_names:
         name, phone, email, courses, _ = name_cell.parent.find_all('td')
         scraped_professors.append({
