@@ -5,32 +5,18 @@
 
 import sys
 sys.path.insert(0, '../')
-import requests
-
-from bs4 import BeautifulSoup
 from libs.utils import utils
+
+adsu_url = "http://www.adsuaq.org/"
 
 def scrape_adsu():
     """Get information about the adsu in a crazy way due to their bitching page made like shit"""
 
     scraped_info = {}
-    adsu_url = "http://www.adsuaq.org/"
-    headers = {
-        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5)",
-        "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "accept-charset": "ISO-8859-1,utf-8;q=0.7,*;q=0.3",
-        "accept-encoding": "gzip,deflate,sdch",
-        "accept-language": "en-US,en;q=0.8",
-    }
-
-    request = requests.get(adsu_url, headers=headers)
-
-    if request.status_code != 200:
-        print("Error! Status "+request.status_code)
-        return
-
-    info = BeautifulSoup(request.text, "html.parser").find(id="AutoNumber5").text.replace("  ", "")\
-           .replace("\t", "").replace("\r", "").replace("\n\n", "")
+    soup = utils.get_soup_from_url(adsu_url)
+    info = soup.find(id="AutoNumber5").text.splitlines()
+    info = '\n'.join(x.strip() for x in info if x.strip())
+    info = info.replace('  ', ' ').replace('  :', ':').replace(' :', ':')
 
     scraped_info.update({
         "info": info
