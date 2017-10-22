@@ -31,7 +31,10 @@ def inevidenza(bot, update):
                        'restare sempre aggiornato')
 
     bot.sendMessage(update.message.chat_id,
-                    parse_mode='HTML', disable_web_page_preview=True, text=news_to_string)
+                    parse_mode='HTML', disable_web_page_preview=True, text=news_to_string,
+                    reply_markup=telegram.ReplyKeyboardRemove())
+
+    return ConversationHandler.END
 
 def ultimissime(bot, update):
     """Defining function that prints 5 news from ultimissime"""
@@ -45,7 +48,10 @@ def ultimissime(bot, update):
                        'restare sempre aggiornato')
 
     bot.sendMessage(update.message.chat_id,
-                    parse_mode='HTML', disable_web_page_preview=True, text=news_to_string)
+                    parse_mode='HTML', disable_web_page_preview=True, text=news_to_string,
+                    reply_markup=telegram.ReplyKeyboardRemove())
+
+    return ConversationHandler.END
 
 def close(bot, update):
     """Defining Function for remove keyboard"""
