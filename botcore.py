@@ -12,7 +12,7 @@ from telegram.ext import Updater, CommandHandler
 from libs import utils
 from libs import news
 from libs.departments import disim, univaq
-from libs import other_commands
+from libs import other_commands, feedback
 
 def start_command(bot, update):
     """Defining the `start` command"""
@@ -70,7 +70,7 @@ def main():
     dispatcher.add_handler(CommandHandler("segreteria", other_commands.student_office_command))
     dispatcher.add_handler(CommandHandler("mensa", other_commands.canteen_command))
     dispatcher.add_handler(CommandHandler("adsu", other_commands.adsu_command))
-    dispatcher.add_handler(CommandHandler("feedback", other_commands.feedback_command))
+    dispatcher.add_handler(feedback.FEEDBACK_CONV)
 
     logger.info('Bot started')
 

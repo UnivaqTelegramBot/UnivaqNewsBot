@@ -100,17 +100,3 @@ def adsu_command(bot, update):
 
     bot.sendMessage(update.message.chat_id,
                     text=adsu_message, parse_mode="HTML")
-
-
-def feedback_command(bot, update):
-    """Defining the `feedback` command"""
-
-    feedback = ('<b>' + update.message.text + '</b>\n\n<i>{} {}, {}</i>'
-                .format(update.message.from_user.first_name,
-                        update.message.from_user.last_name,
-                        update.message.chat_id)).replace('/feedback ', '')
-
-    bot.sendMessage(180852051, feedback, parse_mode='HTML')  # cerquone
-    bot.sendMessage(176765549, feedback, parse_mode='HTML')  # martella
-    bot.sendMessage(update.message.chat_id, 'Il feedback è stato inviato con successo,'
-                                            ' grazie per la collaborazione!')
