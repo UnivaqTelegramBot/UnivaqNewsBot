@@ -33,7 +33,7 @@ def help_command(bot, update):
                     "/disim - Leggi le ultime 5 news del disim, /disimon o /disimoff"
                     " per abilitare o meno le notifiche\n"
                     "/discab - Leggi le ultime 5 news della sezione che vuoi, /discabon"
-                    "/discaboff per abilitare o meno le notifiche\n"
+                    " o /discaboff per abilitare o meno le notifiche\n"
                     "/prof - Visualizza tutti i docenti\n"
                     "/prof cognome/corso - Info su un docente filtrato per corso o cognome\n"
                     "/segreteria - Info sulla segreteria studenti\n"
