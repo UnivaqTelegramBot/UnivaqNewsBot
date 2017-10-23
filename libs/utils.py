@@ -14,7 +14,12 @@ DATABASE = ""
 USERS = {
     'telegramID': [],
     'disim': [],
-    'univaq': []
+    'univaq': [],
+    'general_discab': [],
+    'biotechnology': [],
+    'medical': [],
+    'motor_science': [],
+    'psychology': []
 }
 NEWS = {}
 

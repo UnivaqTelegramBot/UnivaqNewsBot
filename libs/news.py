@@ -6,14 +6,19 @@
 from telegram import TelegramError
 
 from libs import utils
-from libs.news_scrapers import disim, univaq
+from libs.news_scrapers import disim, univaq, discab
 
 def pull_news():
     """This function is built to pull 5 news from all the websites"""
 
     scrapers = {
         'disim': disim.scraper,
-        'univaq': univaq.scraper
+        'univaq': univaq.scraper,
+        'general_discab': discab.general_news,
+        'biotechnology': discab.biotechnology_news,
+        'medical': discab.medical_news,
+        'motor_science': discab.motor_science_news,
+        'psychology': discab.psychology_news
     }
     news = {}
 
@@ -30,7 +35,12 @@ def check_news():
     stored_news = utils.NEWS
     unread_news = {
         'disim': [],
-        'univaq': []
+        'univaq': [],
+        'general_discab':[],
+        'biotechnology': [],
+        'medical':[],
+        'motor_science': [],
+        'psychology': []
     }
 
     # TODO _id field coming back don't know why
