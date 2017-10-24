@@ -15,11 +15,15 @@ USERS = {
     'telegramID': [],
     'disim': [],
     'univaq': [],
-    'general_discab': [],
-    'biotechnology': [],
-    'medical': [],
-    'motor_science': [],
-    'psychology': []
+    'discab_general': [],
+    'discab_biotechnology': [],
+    'discab_medical':[],
+    'discab_motor_science': [],
+    'discab_psychology': [],
+    'mesva_general': [],
+    'mesva_medical': [],
+    'mesva_environmental_science': [],
+    'mesva_biological_science': []
 }
 NEWS = {}
 

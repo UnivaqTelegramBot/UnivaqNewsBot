@@ -10,8 +10,8 @@ from libs import utils
 def discab(bot, update):
     """Defining the command to retrieve 5 news"""
 
-    keys = [['Notizie del dipartimento'], ['Biotecnologie'], ['Area Medica'],
-            ['Scienze Motorie'], ['Psicologia'], ['Chiudi']]
+    keys = [['News del dipartimento'], ['Area delle Biotecnologie'], ['Area Medica'],
+            ['Area delle Scienze Motorie'], ['Area della Psicologia'], ['Chiudi']]
 
     bot.sendMessage(update.message.chat_id,
                     'Scegli la sezione',
@@ -24,7 +24,7 @@ def general_news(bot, update, section):
     """Defining function that prints 5 news from Discab given section"""
 
     news_to_string = ""
-    for i, item in enumerate(utils.NEWS[section][0:5]):
+    for i, item in enumerate(utils.NEWS[section]):
         news_to_string += (str(i + 1) + ' - <a href="{link}">{title}</a>\n\n').format(**item)
 
     news_to_string += ('<a href="http://discab.univaq.it/index.php?id=2004">'
@@ -38,43 +38,43 @@ def general_news(bot, update, section):
 def discab_news(bot, update):
     """This function is bulit to print Discab general news"""
 
-    general_news(bot, update, 'general_discab')
+    general_news(bot, update, 'discab_general')
 
     return ConversationHandler.END
 
 def biotechnology(bot, update):
     """This function is bulit to print biotechnology news"""
 
-    general_news(bot, update, 'biotechnology')
+    general_news(bot, update, 'discab_biotechnology')
 
     return ConversationHandler.END
 
 def medical(bot, update):
     """This function is bulit to print medical news"""
 
-    general_news(bot, update, 'medical')
+    general_news(bot, update, 'discab_medical')
 
     return ConversationHandler.END
 
 def motor_science(bot, update):
     """This function is bulit to print motor_science news"""
 
-    general_news(bot, update, 'motor_science')
+    general_news(bot, update, 'discab_motor_science')
 
     return ConversationHandler.END
 
 def psychology(bot, update):
     """This function is bulit to print psychology news"""
 
-    general_news(bot, update, 'psychology')
+    general_news(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
 
 def discabon(bot, update):
     """Defining the command to retrieve 5 news"""
 
-    keys = [['Notizie del dipartimento'], ['Biotecnologie'], ['Area Medica'],
-            ['Scienze Motorie'], ['Psicologia'], ['Chiudi']]
+    keys = [['News del dipartimento'], ['Area delle Biotecnologie'], ['Area Medica'],
+            ['Area delle Scienze Motorie'], ['Area della Psicologia'], ['Chiudi']]
 
     bot.sendMessage(update.message.chat_id,
                     'Scegli la sezione',
@@ -99,43 +99,43 @@ def general_news_on(bot, update, section):
 def discab_on(bot, update):
     """This function is built to enable discab general news"""
 
-    general_news_on(bot, update, 'general_discab')
+    general_news_on(bot, update, 'discab_general')
 
     return ConversationHandler.END
 
 def biotechnology_on(bot, update):
     """This function is built to enable biotechnology news"""
 
-    general_news_on(bot, update, 'biotechnology')
+    general_news_on(bot, update, 'discab_biotechnology')
 
     return ConversationHandler.END
 
 def medical_on(bot, update):
     """This function is built to enable medical news"""
 
-    general_news_on(bot, update, 'medical')
+    general_news_on(bot, update, 'discab_medical')
 
     return ConversationHandler.END
 
 def motor_science_on(bot, update):
     """This function is built to enable motor scince news"""
 
-    general_news_on(bot, update, 'motor_science')
+    general_news_on(bot, update, 'discab_motor_science')
 
     return ConversationHandler.END
 
 def psychology_on(bot, update):
     """This function is built to enable psychology news"""
 
-    general_news_on(bot, update, 'psychology')
+    general_news_on(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
 
 def discaboff(bot, update):
     """Defining the command to retrieve 5 news"""
 
-    keys = [['Notizie del dipartimento'], ['Biotecnologie'], ['Area Medica'],
-            ['Scienze Motorie'], ['Psicologia'], ['Chiudi']]
+    keys = [['News del dipartimento'], ['Area delle Biotecnologie'], ['Area Medica'],
+            ['Area delle Scienze Motorie'], ['Area della Psicologia'], ['Chiudi']]
 
     bot.sendMessage(update.message.chat_id,
                     'Scegli la sezione',
@@ -160,35 +160,35 @@ def general_news_off(bot, update, section):
 def discab_off(bot, update):
     """This function is built to disable discab general news"""
 
-    general_news_off(bot, update, 'general_discab')
+    general_news_off(bot, update, 'discab_general')
 
     return ConversationHandler.END
 
 def biotechnology_off(bot, update):
     """This function is built to disable biotechnology news"""
 
-    general_news_off(bot, update, 'biotechnology')
+    general_news_off(bot, update, 'discab_biotechnology')
 
     return ConversationHandler.END
 
 def medical_off(bot, update):
     """This function is built to disable medical news"""
 
-    general_news_off(bot, update, 'medical')
+    general_news_off(bot, update, 'discab_medical')
 
     return ConversationHandler.END
 
 def motor_science_off(bot, update):
     """This function is built to disable motor scince news"""
 
-    general_news_off(bot, update, 'motor_science')
+    general_news_off(bot, update, 'discab_motor_science')
 
     return ConversationHandler.END
 
 def psychology_off(bot, update):
     """This function is built to disable psychology news"""
 
-    general_news_off(bot, update, 'psychology')
+    general_news_off(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
 
@@ -204,11 +204,11 @@ def close(bot, update):
 NEWS_CONV = ConversationHandler(
     entry_points=[CommandHandler('discab', discab)],
     states={
-        "option": [RegexHandler('^(Notizie del dipartimento)$', discab_news),
-                   RegexHandler('^(Biotecnologie)$', biotechnology),
+        "option": [RegexHandler('^(News del dipartimento)$', discab_news),
+                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology),
                    RegexHandler('^(Area Medica)$', medical),
-                   RegexHandler('^(Scienze Motorie)$', motor_science),
-                   RegexHandler('^(Psicologia)$', psychology)]
+                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science),
+                   RegexHandler('^(Area della Psicologia)$', psychology)]
     },
     fallbacks=[RegexHandler('^(Chiudi)$', close)]
 )
@@ -216,11 +216,11 @@ NEWS_CONV = ConversationHandler(
 NEWS_ON_CONV = ConversationHandler(
     entry_points=[CommandHandler('discabon', discabon)],
     states={
-        "option": [RegexHandler('^(Notizie del dipartimento)$', discab_on),
-                   RegexHandler('^(Biotecnologie)$', biotechnology_on),
+        "option": [RegexHandler('^(News del dipartimento)$', discab_on),
+                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology_on),
                    RegexHandler('^(Area Medica)$', medical_on),
-                   RegexHandler('^(Scienze Motorie)$', motor_science_on),
-                   RegexHandler('^(Psicologia)$', psychology_on)]
+                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science_on),
+                   RegexHandler('^(Area della Psicologia)$', psychology_on)]
     },
     fallbacks=[RegexHandler('^(Chiudi)$', close)]
 )
@@ -228,11 +228,11 @@ NEWS_ON_CONV = ConversationHandler(
 NEWS_OFF_CONV = ConversationHandler(
     entry_points=[CommandHandler('discaboff', discaboff)],
     states={
-        "option": [RegexHandler('^(Notizie del dipartimento)$', discab_off),
-                   RegexHandler('^(Biotecnologie)$', biotechnology_off),
+        "option": [RegexHandler('^(News del dipartimento)$', discab_off),
+                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology_off),
                    RegexHandler('^(Area Medica)$', medical_off),
-                   RegexHandler('^(Scienze Motorie)$', motor_science_off),
-                   RegexHandler('^(Psicologia)$', psychology_off)]
+                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science_off),
+                   RegexHandler('^(Area della Psicologia)$', psychology_off)]
     },
     fallbacks=[RegexHandler('^(Chiudi)$', close)]
 )

@@ -6,7 +6,7 @@
 from telegram import TelegramError
 
 from libs import utils
-from libs.news_scrapers import disim, univaq, discab
+from libs.news_scrapers import disim, univaq, discab, mesva
 
 def pull_news():
     """This function is built to pull 5 news from all the websites"""
@@ -14,11 +14,15 @@ def pull_news():
     scrapers = {
         'disim': disim.scraper,
         'univaq': univaq.scraper,
-        'general_discab': discab.general_news,
-        'biotechnology': discab.biotechnology_news,
-        'medical': discab.medical_news,
-        'motor_science': discab.motor_science_news,
-        'psychology': discab.psychology_news
+        'discab_general': discab.general_news,
+        'discab_biotechnology': discab.biotechnology_news,
+        'discab_medical': discab.medical_news,
+        'discab_motor_science': discab.motor_science_news,
+        'discab_psychology': discab.psychology_news,
+        'mesva_general': mesva.general_news,
+        'mesva_medical': mesva.medical_news,
+        'mesva_environmental_science': mesva.environmental_science_news,
+        'mesva_biological_science': mesva.biological_science_news
     }
     news = {}
 
@@ -36,11 +40,15 @@ def check_news():
     unread_news = {
         'disim': [],
         'univaq': [],
-        'general_discab':[],
-        'biotechnology': [],
-        'medical':[],
-        'motor_science': [],
-        'psychology': []
+        'discab_general': [],
+        'discab_biotechnology': [],
+        'discab_medical':[],
+        'discab_motor_science': [],
+        'discab_psychology': [],
+        'mesva_general': [],
+        'mesva_medical': [],
+        'mesva_environmental_science': [],
+        'mesva_biological_science': []
     }
 
     # TODO _id field coming back don't know why
