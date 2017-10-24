@@ -23,22 +23,23 @@ The telegram bot provides students with up-to-date information on professors, fa
 
 ### Functionalities
 
-As with every telegram bot, you can ask the bot what does by entering `/help` or even `/start`
+As with every telegram bot, you can ask the bot what does by entering `/help` or even `/start`.
+Let's check out what commands you can use:
 
 ```sh
-La lista di comandi:
-
-/help - Stampa questo messaggio
-/disim - Leggi le ultime 5 news del disim, /disimon o /disimoff per abilitare o meno le notifiche
-/univaq - Leggi le ultime 5 news dell'univaq, /univaqon o /univaqoff per abilitare o meno le notifiche
-/mesva - Leggi le ultime 5 news del mesvaq, /mesvaon o /mesvaoff per abilitare o meno le notifiche
-/discab - Leggi le ultime 5 news del discab, /discabon o /discaboff per abilitare o meno le notifiche
-/prof - Stampa la lista dei professori
-/prof cognome/corso - Info su un docente filtrato per corso o cognome
-/segreteria - Info sulla segreteria studenti
-/mensa - Info sugli orari della mensa
-/adsu - Info sull'adsu
-/feedback messaggio - Lascia un messaggio agli sviluppatori
+help - Stampa la lista dei comandi
+disim - Leggi le ultime 5 news del disim
+disimon - Abilita le notifiche del disim
+disimoff - Disabilita le notifiche del disim
+univaq - Leggi le ultime 5 news dell'univaq (ultimissime o in evidenza)
+univaqon - Abilita le notifiche dell'univaq
+univaqoff - Disabilita le notifiche dell'univaq
+prof - Stampa la lista dei professori
+prof cognome/corso - Info su un docente filtrato per corso o cognome
+segreteria - Info sulla segreteria studenti
+mensa - Info sugli orari della mensa
+adsu - Info sull'adsu
+feedback messaggio - Lascia un messaggio agli sviluppatori
 ```
 
 ### CONTRIBUTING
