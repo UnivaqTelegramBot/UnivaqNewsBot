@@ -21,7 +21,8 @@ def start_command(bot, update):
                "Posso fornirti tutte le informazioni di cui hai bisogno sulla nostra università, "
                "digita /help per vedere la lista di comandi.")
 
-    utils.add_user(update.message.chat_id)
+    if update.message.chat_id not in utils.USERS['telegramID']:
+        utils.add_user(update.message.chat_id)
     bot.sendMessage(update.message.chat_id, text=welcome)
 
 

@@ -8,4 +8,3 @@ Priority 0:
 Priority 1:
 
 1. Implement in some way (maybe scraping pdf documents) the lessons timetables with their notifications.
-2. Fix multiple instance of same user into the database 
