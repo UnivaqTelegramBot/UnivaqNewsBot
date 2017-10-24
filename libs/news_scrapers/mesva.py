@@ -9,7 +9,7 @@ import requests
 def general_scraper(section_url):
     """This function is built to have a general news scraper to get news from Mesva"""
 
-    prefix = "http://mesva.univaq.it/"
+    prefix = "http://mesva.univaq.it"
 
     request = []
     news = []
