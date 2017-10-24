@@ -12,17 +12,15 @@ def general_scraper(section_url):
     prefix = "http://mesva.univaq.it/"
 
     request = []
-    bs_list = []
     news = []
 
     for i, url in enumerate(section_url):
         request.append(requests.get(url))
-        bs_list.append(BeautifulSoup(request[i].text, "html.parser")
-                       .find(class_="view-content"))
+        news_division = BeautifulSoup(request[i].text, "html.parser").find(class_="view-content")
 
-        children = bs_list[i].find_all("div", recursive=False)[0:5]
+        discab_news = news_division.find_all("div", recursive=False)[0:5]
 
-        for single_news in children:
+        for single_news in discab_news:
             news.append({
                 'description': '',
                 'title': single_news.a.string,
