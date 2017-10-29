@@ -4,7 +4,7 @@
 """The Package that contains all the news commands for the univaq department"""
 
 import telegram
-from telegram.ext import CommandHandler, ConversationHandler, RegexHandler
+from telegram.ext import ConversationHandler
 from libs import utils
 
 def discab(bot, update):
@@ -18,7 +18,7 @@ def discab(bot, update):
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "discab"
 
 def general_news(bot, update, section):
     """Defining function that prints 5 news from Discab given section"""
@@ -28,7 +28,7 @@ def general_news(bot, update, section):
         news_to_string += (str(i + 1) + ' - <a href="{link}">{title}</a>\n\n').format(**item)
 
     news_to_string += ('<a href="http://discab.univaq.it/index.php?id=2004">'
-                       'Vedi le altre notizie</a> e attiva le notifiche con /discabon per '
+                       'Vedi le altre notizie</a> e attiva le notifiche con /newson per '
                        'restare sempre aggiornato')
 
     bot.sendMessage(update.message.chat_id,
@@ -81,7 +81,7 @@ def discabon(bot, update):
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "discab"
 
 def general_news_on(bot, update, section):
     """Defining the command to enable notification for discab section"""
@@ -142,7 +142,7 @@ def discaboff(bot, update):
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "discab"
 
 def general_news_off(bot, update, section):
     """Defining the command to disable notification for discab section"""
@@ -191,48 +191,3 @@ def psychology_off(bot, update):
     general_news_off(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
-
-def close(bot, update):
-    """Defining Function for remove keyboard"""
-
-    bot.sendMessage(update.message.chat_id,
-                    'Ho chiuso le news del Discab!',
-                    reply_markup=telegram.ReplyKeyboardRemove())
-
-    return ConversationHandler.END
-
-NEWS_CONV = ConversationHandler(
-    entry_points=[CommandHandler('discab', discab)],
-    states={
-        "option": [RegexHandler('^(News del dipartimento)$', discab_news),
-                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology),
-                   RegexHandler('^(Area Medica)$', medical),
-                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science),
-                   RegexHandler('^(Area della Psicologia)$', psychology)]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)
-
-NEWS_ON_CONV = ConversationHandler(
-    entry_points=[CommandHandler('discabon', discabon)],
-    states={
-        "option": [RegexHandler('^(News del dipartimento)$', discab_on),
-                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology_on),
-                   RegexHandler('^(Area Medica)$', medical_on),
-                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science_on),
-                   RegexHandler('^(Area della Psicologia)$', psychology_on)]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)
-
-NEWS_OFF_CONV = ConversationHandler(
-    entry_points=[CommandHandler('discaboff', discaboff)],
-    states={
-        "option": [RegexHandler('^(News del dipartimento)$', discab_off),
-                   RegexHandler('^(Area delle Biotecnologie)$', biotechnology_off),
-                   RegexHandler('^(Area Medica)$', medical_off),
-                   RegexHandler('^(Area delle Scienze Motorie)$', motor_science_off),
-                   RegexHandler('^(Area della Psicologia)$', psychology_off)]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)

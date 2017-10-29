@@ -10,8 +10,7 @@ import os
 from telegram.ext import Updater, CommandHandler
 
 from libs import utils
-from libs import news
-from libs.departments import disim, univaq, discab, mesva
+from libs import news, news_command
 from libs import other_commands, feedback
 
 def start_command(bot, update):
@@ -30,19 +29,18 @@ def help_command(bot, update):
     """Defining the `help` command"""
 
     help_message = ("La lista di comandi:\n\n"
-                    "/help - Stampa questo messaggio\n"
-                    "/disim - Leggi le ultime 5 news del disim, /disimon o /disimoff"
-                    " per abilitare o meno le notifiche\n"
-                    "/discab - Leggi le ultime 5 news della sezione che vuoi, /discabon"
-                    " o /discaboff per abilitare o meno le notifiche\n"
-                    "/mesva - Leggi le ultime 5 news della sezione che vuoi, /mesvaon"
-                    " o /mesvaoff per abilitare o meno le notifiche\n"
-                    "/prof - Visualizza tutti i docenti\n"
-                    "/prof cognome/corso - Info su un docente filtrato per corso o cognome\n"
-                    "/segreteria - Info sulla segreteria studenti\n"
-                    "/mensa - Info sugli orari della mensa\n"
-                    "/adsu - Info sull'adsu\n"
-                    "/feedback messaggio - Lascia un messaggio agli sviluppatori"
+                    "/help - Stampa questo messaggio.\n"
+                    "/news - Mostra le notifiche per la sezione del dipartimento che preferisci.\n"
+                    "/newson - Abilita le notifiche per la sezione del"
+                    " dipartimento che preferisci.\n"
+                    "/newsoff - Disattiva le notifiche per la sezione del"
+                    " dipartimento che preferisci.\n"
+                    "/prof - Visualizza tutti i docenti.\n"
+                    "/prof cognome/corso - Info su un docente filtrato per corso o cognome.\n"
+                    "/segreteria - Info sulla segreteria studenti.\n"
+                    "/mensa - Info sugli orari della mensa.\n"
+                    "/adsu - Info sull'adsu.\n"
+                    "/feedback messaggio - Lascia un messaggio agli sviluppatori."
                     "\n\nQuesto bot è orgogliosamente open source"
                     ", sviluppato e mantenuto da Giacomo Cerquone e Stefano Martella.")
 
@@ -65,18 +63,9 @@ def main():
 
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(CommandHandler("disim", disim.disim))
-    dispatcher.add_handler(CommandHandler("disimon", disim.disimon))
-    dispatcher.add_handler(CommandHandler("disimoff", disim.disimoff))
-    dispatcher.add_handler(discab.NEWS_CONV)
-    dispatcher.add_handler(discab.NEWS_ON_CONV)
-    dispatcher.add_handler(discab.NEWS_OFF_CONV)
-    dispatcher.add_handler(mesva.NEWS_CONV)
-    dispatcher.add_handler(mesva.NEWS_ON_CONV)
-    dispatcher.add_handler(mesva.NEWS_OFF_CONV)
-    dispatcher.add_handler(univaq.NEWS_CONV)
-    dispatcher.add_handler(CommandHandler("univaqon", univaq.univaqon))
-    dispatcher.add_handler(CommandHandler("univaqoff", univaq.univaqoff))
+    dispatcher.add_handler(news_command.NEWS_CONV)
+    dispatcher.add_handler(news_command.NEWS_ON_CONV)
+    dispatcher.add_handler(news_command.NEWS_OFF_CONV)
     dispatcher.add_handler(CommandHandler("prof", other_commands.prof_command, pass_args=True))
     dispatcher.add_handler(CommandHandler("segreteria", other_commands.student_office_command))
     dispatcher.add_handler(CommandHandler("mensa", other_commands.canteen_command))

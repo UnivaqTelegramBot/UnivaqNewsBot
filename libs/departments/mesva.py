@@ -4,7 +4,7 @@
 """The Package that contains all the news commands for the univaq department"""
 
 import telegram
-from telegram.ext import CommandHandler, ConversationHandler, RegexHandler
+from telegram.ext import ConversationHandler
 from libs import utils
 
 def mesva(bot, update):
@@ -14,11 +14,11 @@ def mesva(bot, update):
             ['Area Scienze Biologiche'], ['Chiudi']]
 
     bot.sendMessage(update.message.chat_id,
-                    'Scegli la sezione',
+                    'Scegli la sezione:',
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "mesva"
 
 def general_news(bot, update, section):
     """Defining function that prints 5 news from mesva given section"""
@@ -28,7 +28,7 @@ def general_news(bot, update, section):
         news_to_string += (str(i + 1) + ' - <a href="{link}">{title}</a>\n\n').format(**item)
 
     news_to_string += ('<a href="http://mesva.univaq.it/">'
-                       'Vedi le altre notizie</a> e attiva le notifiche con /mesvaon per '
+                       'Vedi le altre notizie</a> e attiva le notifiche con /newson per '
                        'restare sempre aggiornato')
 
     bot.sendMessage(update.message.chat_id,
@@ -81,7 +81,7 @@ def mesvaon(bot, update):
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "mesva"
 
 def general_news_on(bot, update, section):
     """Defining the command to enable notification for mesva section"""
@@ -135,7 +135,7 @@ def mesvaoff(bot, update):
                     reply_markup=telegram.ReplyKeyboardMarkup(
                         keys, one_time_keyboard=True))
 
-    return "option"
+    return "mesva"
 
 def general_news_off(bot, update, section):
     """Defining the command to disable notification for mesva section"""
@@ -177,48 +177,3 @@ def biological_science_off(bot, update):
     general_news_off(bot, update, 'mesva_biological_science')
 
     return ConversationHandler.END
-
-def close(bot, update):
-    """Defining Function for remove keyboard"""
-
-    bot.sendMessage(update.message.chat_id,
-                    'Ho chiuso le news del mesva!',
-                    reply_markup=telegram.ReplyKeyboardRemove())
-
-    return ConversationHandler.END
-
-NEWS_CONV = ConversationHandler(
-    entry_points=[CommandHandler('mesva', mesva)],
-    states={
-        "option": [RegexHandler('^(In Evidenza)$', mesva_news),
-                   RegexHandler('^(Area Medicina)$', medical),
-                   RegexHandler('^(Area Scienze Ambientali)$', environmental_science),
-                   RegexHandler('^(Area Scienze Biologiche)$', biological_science)
-                  ]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)
-
-NEWS_ON_CONV = ConversationHandler(
-    entry_points=[CommandHandler('mesvaon', mesvaon)],
-    states={
-        "option": [RegexHandler('^(In Evidenza)$', mesva_on),
-                   RegexHandler('^(Area Medicina)$', medical_on),
-                   RegexHandler('^(Area Scienze Ambientali)$', environmental_science_on),
-                   RegexHandler('^(Area Scienze Biologiche)$', biological_science_on)
-                  ]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)
-
-NEWS_OFF_CONV = ConversationHandler(
-    entry_points=[CommandHandler('mesvaoff', mesvaoff)],
-    states={
-        "option": [RegexHandler('^(In Evidenza)$', mesva_off),
-                   RegexHandler('^(Area Medicina)$', medical_off),
-                   RegexHandler('^(Area Scienze Ambientali)$', environmental_science_off),
-                   RegexHandler('^(Area Scienze Biologiche)$', biological_science_off)
-                  ]
-    },
-    fallbacks=[RegexHandler('^(Chiudi)$', close)]
-)
