@@ -25,7 +25,8 @@ def scraper():
             news.append({
                 'description': '',
                 'title': single_news.div.next_sibling.next_sibling.string,
-                'link': prefix + single_news.a['href']
+                'link': prefix + single_news.a['href'] if 'http://' not in single_news.a['href']
+                        else single_news.a['href']
             })
 
     return news
