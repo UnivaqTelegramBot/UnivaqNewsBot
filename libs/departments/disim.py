@@ -10,9 +10,10 @@ def disim(bot, update):
 
     news_to_string = ""
     for i, item in enumerate(utils.NEWS['disim'][0:5]):
-        item["suffix"] = '...' if len(item['description']) > 75 else ''
+        suffix = '...' if len(item['description']) > 75 else ''
         news_to_string += (str(i + 1) + ' - <a href="{link}">{title}</a>\n'
-                           '\t<i>{description:.75}{suffix}</i>\n\n').format(**item)
+                           '\t<i>{description:.75}{}</i>\n\n').format(suffix, **item)
+
     news_to_string += ('<a href="http://www.disim.univaq.it/main/news.php?entrant=1">'
                        'Vedi le altre notizie</a> e attiva le notifiche con /disimon per '
                        'restare sempre aggiornato')
