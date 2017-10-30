@@ -10,7 +10,8 @@ def scraper():
     """This function is built to pull 5 news from the news page of the disim"""
 
     # Thanks to Luca Pattavina for giving me the right url
-    news_url = ["http://www.disim.univaq.it/main/news.php?entrant=1"]
+    news_url = ["http://www.disim.univaq.it/main/news.php?entrant=1",
+                "http://www.disim.univaq.it/main/news.php?entrant=2"]
 
     request = []
     bs_list = []
