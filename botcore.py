@@ -37,6 +37,8 @@ def help_command(bot, update):
                     " o /discaboff per abilitare o meno le notifiche\n"
                     "/mesva - Leggi le ultime 5 news della sezione che vuoi, /mesvaon"
                     " o /mesvaoff per abilitare o meno le notifiche\n"
+                    "/univaq - Leggi le ultime 5 news (ultimissime o in evidenza)"
+                    "dell'univaq, /univaqon o /univaqoff per abilitare o meno le notifiche\n"
                     "/prof - Visualizza tutti i docenti\n"
                     "/prof cognome/corso - Info su un docente filtrato per corso o cognome\n"
                     "/segreteria - Info sulla segreteria studenti\n"
