@@ -54,7 +54,7 @@ def check_news():
     # TODO _id field coming back don't know why
     for section in stored_news:
         if section != '_id':
-            unread_news[section] = ([x for x in pulled_news[section]
+            unread_news[section] = ([x for x in pulled_news[section][0:5]
                                      if x not in stored_news[section]])
 
     return {'unread_news': unread_news,
