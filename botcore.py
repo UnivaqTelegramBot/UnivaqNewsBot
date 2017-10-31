@@ -10,7 +10,7 @@ import os
 from telegram.ext import Updater, CommandHandler
 
 from libs import utils
-from libs import news, news_command
+from libs import news, news_commands
 from libs import other_commands, feedback
 
 def start_command(bot, update):
@@ -63,9 +63,9 @@ def main():
 
     dispatcher.add_handler(CommandHandler("start", start_command))
     dispatcher.add_handler(CommandHandler("help", help_command))
-    dispatcher.add_handler(news_command.NEWS_CONV)
-    dispatcher.add_handler(news_command.NEWS_ON_CONV)
-    dispatcher.add_handler(news_command.NEWS_OFF_CONV)
+    dispatcher.add_handler(news_commands.NEWS_CONV)
+    dispatcher.add_handler(news_commands.NEWS_ON_CONV)
+    dispatcher.add_handler(news_commands.NEWS_OFF_CONV)
     dispatcher.add_handler(CommandHandler("prof", other_commands.prof_command, pass_args=True))
     dispatcher.add_handler(CommandHandler("segreteria", other_commands.student_office_command))
     dispatcher.add_handler(CommandHandler("mensa", other_commands.canteen_command))

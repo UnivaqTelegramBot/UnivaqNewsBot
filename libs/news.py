@@ -64,6 +64,20 @@ def check_news():
 def notify_news(bot, job):
     """Defining method that will be repeated over and over"""
 
+    translation = {
+        'disim': 'Disim',
+        'univaq': 'Univaq',
+        'discab_general': 'Discab',
+        'discab_biotechnology': 'Biotecnologie',
+        'discab_medical': 'Discab Medicina',
+        'discab_motor_science': 'Scienze Motorie',
+        'discab_psychology': 'Psicologia',
+        'mesva_general': 'Mesva',
+        'mesva_medical': 'Mesva Medicina',
+        'mesva_environmental_science': 'Scienze Ambientali',
+        'mesva_biological_science': 'Scienze Biologiche'
+    }
+
     checked = check_news()
     unread_news = checked['unread_news']
     pulled_news = checked['pulled_news']
@@ -71,7 +85,7 @@ def notify_news(bot, job):
 
     for section in unread_news:
         if unread_news[section]:
-            news_to_string = "<b>"+section.capitalize()+"</b>\n\n"
+            news_to_string = "<b>"+translation[section]+"</b>\n\n"
 
             utils.NEWS = pulled_news
             utils.store_news(pulled_news)

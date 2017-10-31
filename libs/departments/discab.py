@@ -20,7 +20,7 @@ def discab(bot, update):
 
     return "discab"
 
-def general_news(bot, update, section):
+def discab_news(bot, update, section):
     """Defining function that prints 5 news from Discab given section"""
 
     news_to_string = ""
@@ -34,39 +34,6 @@ def general_news(bot, update, section):
     bot.sendMessage(update.message.chat_id,
                     parse_mode='HTML', disable_web_page_preview=True, text=news_to_string,
                     reply_markup=telegram.ReplyKeyboardRemove())
-
-def discab_news(bot, update):
-    """This function is bulit to print Discab general news"""
-
-    general_news(bot, update, 'discab_general')
-
-    return ConversationHandler.END
-
-def biotechnology(bot, update):
-    """This function is bulit to print biotechnology news"""
-
-    general_news(bot, update, 'discab_biotechnology')
-
-    return ConversationHandler.END
-
-def medical(bot, update):
-    """This function is bulit to print medical news"""
-
-    general_news(bot, update, 'discab_medical')
-
-    return ConversationHandler.END
-
-def motor_science(bot, update):
-    """This function is bulit to print motor_science news"""
-
-    general_news(bot, update, 'discab_motor_science')
-
-    return ConversationHandler.END
-
-def psychology(bot, update):
-    """This function is bulit to print psychology news"""
-
-    general_news(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
 
@@ -83,7 +50,7 @@ def discabon(bot, update):
 
     return "discab"
 
-def general_news_on(bot, update, section):
+def discab_news_on(bot, update, section):
     """Defining the command to enable notification for discab section"""
 
     if update.message.chat_id not in utils.USERS[section]:
@@ -95,39 +62,6 @@ def general_news_on(bot, update, section):
         bot.sendMessage(update.message.chat_id,
                         text='Le notifiche sono già abilitate!',
                         reply_markup=telegram.ReplyKeyboardRemove())
-
-def discab_on(bot, update):
-    """This function is built to enable discab general news"""
-
-    general_news_on(bot, update, 'discab_general')
-
-    return ConversationHandler.END
-
-def biotechnology_on(bot, update):
-    """This function is built to enable biotechnology news"""
-
-    general_news_on(bot, update, 'discab_biotechnology')
-
-    return ConversationHandler.END
-
-def medical_on(bot, update):
-    """This function is built to enable medical news"""
-
-    general_news_on(bot, update, 'discab_medical')
-
-    return ConversationHandler.END
-
-def motor_science_on(bot, update):
-    """This function is built to enable motor scince news"""
-
-    general_news_on(bot, update, 'discab_motor_science')
-
-    return ConversationHandler.END
-
-def psychology_on(bot, update):
-    """This function is built to enable psychology news"""
-
-    general_news_on(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
 
@@ -144,7 +78,7 @@ def discaboff(bot, update):
 
     return "discab"
 
-def general_news_off(bot, update, section):
+def discab_news_off(bot, update, section):
     """Defining the command to disable notification for discab section"""
 
     if update.message.chat_id in utils.USERS[section]:
@@ -156,38 +90,5 @@ def general_news_off(bot, update, section):
         bot.sendMessage(update.message.chat_id,
                         text='Per disattivare le notifiche dovresti prima attivarle.',
                         reply_markup=telegram.ReplyKeyboardRemove())
-
-def discab_off(bot, update):
-    """This function is built to disable discab general news"""
-
-    general_news_off(bot, update, 'discab_general')
-
-    return ConversationHandler.END
-
-def biotechnology_off(bot, update):
-    """This function is built to disable biotechnology news"""
-
-    general_news_off(bot, update, 'discab_biotechnology')
-
-    return ConversationHandler.END
-
-def medical_off(bot, update):
-    """This function is built to disable medical news"""
-
-    general_news_off(bot, update, 'discab_medical')
-
-    return ConversationHandler.END
-
-def motor_science_off(bot, update):
-    """This function is built to disable motor scince news"""
-
-    general_news_off(bot, update, 'discab_motor_science')
-
-    return ConversationHandler.END
-
-def psychology_off(bot, update):
-    """This function is built to disable psychology news"""
-
-    general_news_off(bot, update, 'discab_psychology')
 
     return ConversationHandler.END
