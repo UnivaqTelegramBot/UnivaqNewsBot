@@ -6,7 +6,15 @@
 from libs import utils
 
 def disim(bot, update):
-    """Defining the command to retrieve 5 news"""
+    """Defining the command to retrieve 5 news
+    Now we store the last 10 news into the database,
+    the comparison to send notifications is made between
+    the last 5 pulled news from disim site and the news stored into the db.
+    This decision was made to avoid repeated news, in fact, if some news(from first to fifth)
+    is deleted the sixth(that now has become the fifth) news will be sent again even if it is
+    already been sent in the past because it will appear in the pulled news and it
+    is no more present into the database at the moment of the comparison.
+    """
 
     news_to_string = ""
     for i, item in enumerate(utils.NEWS['disim'][0:5]):
