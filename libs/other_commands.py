@@ -91,10 +91,12 @@ def adsu_command(bot, update):
            "<b>Sede legale:</b>\n<i>{sede[legale]}\n\n</i>"
            "<b>Sede operativa:</b>\n<i>{sede[operativa]}</i>\n\n"
            "<b>Telefono:\n</b><i>{telefono}</i>\n\n"
-           "Gli <b>Orari</b> degli uffici adsu sono i seguenti:\n"
-           "<b>Lunedì:</b>\n\t<i>{orari[lunedi]}"
-           "</i>\n\t<b>Esclusivamente per il ritiro tessere mensa.</b>\n\n"
-           "<b>Martedì e Giovedì:</b>\n\t<i> {orari[martedi-giovedi]}</i>\n\n"
+           "Gli <b>Orari</b> degli <b>sportelli</b> adsu sono i seguenti:\n\n"
+           "<b>Lunedì - Mercoledì:</b>\n\t<i>{orari[sportelli][lunedi-mercoledi]}</i>\n\n"
+           "<b>Giovedì:</b>\n\t<i>{orari[sportelli][giovedi]}</i>\n\n"
+           "Gli <b>Orari</b> per le <b>telefonate</b> sono i seguenti:\n\n"
+           "<b>Lunedì - Mercoledì:</b>\n\t<i>{orari[telefonate][lunedi-mercoledi]}</i>\n\n"
+           "<b>Giovedì:</b>\n\t<i>{orari[telefonate][giovedi]}</i>\n\n"
            "Link al sito dell'<a href=\"{website}\">adsu</a>")
     adsu_message = fmt.format(**adsu_db)
 
